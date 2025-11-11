@@ -117,6 +117,7 @@ dd {
 
 .timeline {
   width: 100%;
+  position: relative;
 }
 
 .timeline:before {
@@ -127,6 +128,7 @@ dd {
   position: absolute;
   top: 0;
   width: 4px;
+  z-index: 1;
 }
 
 .timeline:after {
@@ -148,6 +150,7 @@ dd {
   position: relative;
   text-align: right;
   width: 33%;
+  z-index: 2;
 }
 
 .entry .title:before {
@@ -178,6 +181,8 @@ dd {
   margin: 0 0 3em;
   padding-left: 30px;
   width: 66%;
+  position: relative;
+  z-index: 2;
 }
 
 .entry .body p {
