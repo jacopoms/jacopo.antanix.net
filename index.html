@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="color-scheme" content="light dark" />
     <title>Jacopo Ghisolfi - Senior Ruby Developer | Full Stack Engineer</title>
     <meta
       name="description"
@@ -34,6 +35,12 @@
   </head>
 
   <body>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <svg class="theme-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path class="sun" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        <path class="moon" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+      </svg>
+    </button>
     <header>
       <h1 id="title" class="text-center">Jacopo Ghisolfi</h1>
       <h2 id="subtitle" class="text-center">Senior Ruby Developer</h2>
@@ -524,6 +531,46 @@
     </footer>
     <!-- End of Footer -->
     <script type="text/javascript">
+      // Theme Toggle
+      (function() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        function getTheme() {
+          // Check if user has manually set a theme
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            return savedTheme;
+          }
+          // Otherwise, follow browser preference
+          return prefersDarkQuery.matches ? 'dark' : 'light';
+        }
+        
+        function applyTheme(theme) {
+          html.setAttribute('data-theme', theme);
+        }
+        
+        // Apply initial theme
+        applyTheme(getTheme());
+        
+        // Listen to browser preference changes (only if user hasn't manually set theme)
+        prefersDarkQuery.addEventListener('change', function(e) {
+          if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches ? 'dark' : 'light');
+          }
+        });
+        
+        // Toggle theme manually
+        themeToggle.addEventListener('click', function() {
+          const currentTheme = html.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          applyTheme(newTheme);
+          localStorage.setItem('theme', newTheme);
+        });
+      })();
+
       var _gaq = _gaq || [];
       _gaq.push(["_setAccount", "UA-18303173-1"]);
       _gaq.push(["_trackPageview"]);
